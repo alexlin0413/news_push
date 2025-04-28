@@ -1,26 +1,29 @@
-
 name: Push Google Alerts to LINE
 
 on:
-  schedule:
-    - cron: '30 0 * * *'
   workflow_dispatch:
+  schedule:
+    - cron: '30 0 * * *'  # 台灣時間早上8:30
 
 jobs:
   run:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-      - name: Install dependencies
-        run: |
-          pip install --upgrade pip
-          pip install google-auth google-auth-oauthlib google-api-python-client requests
-      - name: Run script
-        run: |
-          python push_news.py
-      - name: Restore token.json
-        run: echo "${{ secrets.TOKEN_JSON }}" > token.json
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Restore token.json
+      run: echo "${{ secrets.TOKEN_JSON }}" > token.json
+
+    - name: Run script
+      run: python push_news.py
