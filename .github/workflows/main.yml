@@ -22,3 +22,5 @@ jobs:
       - name: Run script
         run: |
           python push_news.py
+      - name: Restore token.json
+        run: echo "${{ secrets.TOKEN_JSON }}" > token.json
