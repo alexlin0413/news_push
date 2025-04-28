@@ -1,9 +1,9 @@
-name: Push Google Alerts to LINE
+name: Push News Alerts to LINE
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: '30 0 * * *'  # 台灣時間早上8:30
+    - cron: '30 0 * * *'  # 每天台灣時間 08:30 自動執行
+  workflow_dispatch:      # 也可以手動執行
 
 jobs:
   run:
@@ -16,14 +16,13 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.11'
+        python-version: '3.11'  # 用你目前的 Python 版本
 
     - name: Install dependencies
       run: |
+        python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Restore token.json
-      run: echo "${{ secrets.TOKEN_JSON }}" > token.json
-
-    - name: Run script
-      run: python push_news.py
+    - name: Create token.json
+      run: |
+        echo "${{ secrets.TOKEN_JSON }}" > token.json_
