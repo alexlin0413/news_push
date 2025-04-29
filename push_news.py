@@ -7,22 +7,30 @@ from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 import pickle
+import os
 
 # 認證 Gmail
 def gmail_authenticate():
     SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
+
     creds = None
-    if os.path.exists('token.pickle'):
-        with open('token.pickle', 'rb') as token:
-            creds = pickle.load(token)
+    # 嘗試讀取現有 token.json
+    if os.path.exists('token.json'):
+        from google.oauth2.credentials import Credentials
+        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+
+    # 如果 token 不存在或失效，就重新認證
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file('client_secret.json', SCOPES)
             creds = flow.run_local_server(port=0)
-        with open('token.pickle', 'wb') as token:
-            pickle.dump(creds, token)
+
+        # 把新的憑證存回 token.json
+        with open('token.json', 'w') as token:
+            token.write(creds.to_json())
+
     service = build('gmail', 'v1', credentials=creds)
     return service
 
