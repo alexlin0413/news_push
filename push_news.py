@@ -59,7 +59,7 @@ def push_to_line(access_token, message):
 
 # 主程式
 if __name__ == '__main__':
-    ACCESS_TOKEN = '你的LINE長期Channel Access Token'
+    ACCESS_TOKEN = 'qrr1pB8Lt9s6mGs1r9E7SqU7QI0SucHAO6GtcbFtT9ulE2Ha0xLdwj/rBFkq9LnRJxriB5Hvl/QUkSIqCLHq9foGa2zwEyZNinars+mrzFuZq3qAFwuSMw1Hy4N4SobFNfq3ZD+wluVstG2+ICr/OwdB04t89/1O/w1cDnyilFU='
 
     service = gmail_authenticate()
     message = get_latest_google_alert(service)
