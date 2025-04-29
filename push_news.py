@@ -44,7 +44,7 @@ def send_gmail(service, sender, to, subject, message_text):
 
 # --- 發送 LINE 廣播訊息 ---
 def send_line_broadcast(message_text):
-    access_token = 'YOUR_LINE_CHANNEL_ACCESS_TOKEN'  # <-- 改成你的 Line Channel Access Token
+    access_token = 'qrr1pB8Lt9s6mGs1r9E7SqU7QI0SucHAO6GtcbFtT9ulE2Ha0xLdwj/rBFkq9LnRJxriB5Hvl/QUkSIqCLHq9foGa2zwEyZNinars+mrzFuZq3qAFwuSMw1Hy4N4SobFNfq3ZD+wluVstG2+ICr/OwdB04t89/1O/w1cDnyilFU='  
     headers = {
         'Authorization': f'Bearer {access_token}',
         'Content-Type': 'application/json'
