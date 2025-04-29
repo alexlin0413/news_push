@@ -26,9 +26,8 @@ def push_to_line(access_token, message):
 # 主程式
 if __name__ == "__main__":
     ACCESS_TOKEN = "qrr1pB8Lt9s6mGs1r9E7SqU7QI0SucHAO6GtcbFtT9ulE2Ha0xLdwj/rBFkq9LnRJxriB5Hvl/QUkSIqCLHq9foGa2zwEyZNinars+mrzFuZq3qAFwuSMw1Hy4N4SobFNfq3ZD+wluVstG2+ICr/OwdB04t89/1O/w1cDnyilFU="
-    MESSAGE = "MESSAGE = (
-    '今日房市新聞更新完成！\n'
-    '👉 點擊查看詳情：https://estate.ltn.com.tw/article/19382'"
+    MESSAGE = "MESSAGE = '今日房市新聞更新完成！👉 點擊查看詳情：https://estate.ltn.com.tw/article/19382"
+
 
     # 呼叫推送函式
     push_to_line(ACCESS_TOKEN, MESSAGE)
