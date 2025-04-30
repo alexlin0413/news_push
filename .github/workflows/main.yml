@@ -1,32 +1,34 @@
-name: Push Google Alerts to LINE
+name: Daily Google News to LINE
 
 on:
   schedule:
-    - cron: '30 0 * * *'  # 每天台灣時間早上 8:30 執行（台灣+8時區）
-  workflow_dispatch:      # 手動觸發也可以跑
+    - cron: '30 0 * * *'  # 每天 UTC 00:30 = 台灣時間 08:30
+  workflow_dispatch:
 
 jobs:
-  run:
+  run-news-push:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.11'
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
 
-    - name: 建立 token.json
-      run: |
-        echo '${{ secrets.TOKEN_JSON }}' > token.json
-
-    - name: Run push_news.py
-      run: |
-        python push_news.py
+      - name: Run script with secrets
+        env:
+          LINE_ACCESS_TOKEN: ${{ secrets.LINE_ACCESS_TOKEN }}
+          GOOGLE_TOKEN_JSON: ${{ secrets.GOOGLE_TOKEN_JSON }}
+          CLIENT_SECRET_JSON: ${{ secrets.CLIENT_SECRET_JSON }}
+        run: |
+          echo "$GOOGLE_TOKEN_JSON" > token.json
+          echo "$CLIENT_SECRET_JSON" > client_secret.json
+          python3 push_news.py
