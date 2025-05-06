@@ -2,7 +2,7 @@ name: Daily Google News to LINE
 
 on:
   schedule:
-    - cron: '30 3 * * *'  # 每天 UTC 03:30 = 台灣時間 11:30
+    - cron: '0 1 * * *'  # 每天 UTC 01:00 = 台灣時間 09:00
   workflow_dispatch:
 
 jobs:
